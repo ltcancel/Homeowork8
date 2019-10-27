@@ -14,12 +14,14 @@ packages needed to read Json data
 #install.packages("httr")
 #install.packages("rlist")
 #install.packages("jsonlite")
-install.packages("pandas")
+#install.packages("pandas")
+#install.packages("tidyverse")
 library(httr)
 library(rlist)
 library(jsonlite)
 library(dplyr)
-library(pandas)
+#library(tidyverse)
+library(tibble)
 ```
 
 
@@ -27,6 +29,19 @@ Get NY Times API Data
 ```{r}
 resp <- fromJSON("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=Health & Fitness&api-key=AaGWMk26ENauEAKi4AkuhANfJ9PWSGoo")
 resp
+
+articles <- resp$response$docs
+colnames(articles)
+
+#most shared articles in the past 7 days
+mostshared <- fromJSON("https://api.nytimes.com/svc/mostpopular/v2/shared/7.json?api-key=AaGWMk26ENauEAKi4AkuhANfJ9PWSGoo")
+result <- mostshared$results
+result
 ```
 
+
+create tibble of most shared NY Times articles in the past 7 days
+```{r}
+
+```
 
