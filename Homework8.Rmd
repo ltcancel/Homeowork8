@@ -16,12 +16,14 @@ packages needed to read Json data
 #install.packages("jsonlite")
 #install.packages("pandas")
 #install.packages("tidyverse")
+install.packages("ggplot2")
 library(httr)
 library(rlist)
 library(jsonlite)
 library(dplyr)
 #library(tidyverse)
 library(tibble)
+library(ggplot2)
 ```
 
 
@@ -42,6 +44,17 @@ result
 
 create tibble of most shared NY Times articles in the past 7 days
 ```{r}
+articles <- as_tibble(result)
+articles
+```
 
+Visualization of most shared section of the NY Times
+```{r}
+freq <- articles %>% group_by(section) %>% summarise(counts = n())
+freq
+
+ggplot(freq, aes(x = section, y = counts)) + 
+  geom_bar(fill = "#0073C2FF", stat = "identity") +
+  geom_text(aes(label = counts)) + theme_pubclean()
 ```
 
